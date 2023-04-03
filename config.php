@@ -11,13 +11,14 @@ if($devmode) {
     ini_set("display_errors", 1);
 
     define("DBHOST", "localhost");
-    define("DBUSER", "catapi");
+    define("DBUSER", "courseapi");
     define("DBPASS", "password");
-    define("DBDATABASE", "catapi");
+    define("DBDATABASE", "courseapi");
 } else {
     // lägg in dbserver i molnet
     define("DBHOST", "localhost");
-    define("DBUSER", "catapi");
+    define("DBUSER", "courseapi");
     define("DBPASS", "password");
-    define("DBDATABASE", "catapi");
+    define("DBDATABASE", "courseapi");
 }
+
