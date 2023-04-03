@@ -41,4 +41,4 @@ switch ($method) {
 }
 
 // give response back to query
-echo json_enconde($response);
+echo json_encode($response);
