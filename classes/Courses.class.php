@@ -7,7 +7,7 @@ class Courses
     private $courseid;
     private $coursename; 
     private $progression; 
-    private $period;
+    private $syllabus;
 
     // constructor connect to db 
     function __construct(){
@@ -46,11 +46,14 @@ class Courses
         } else return false;
     }
 
-    function setPeriod(int $period) : bool {
-        if(($period > 0 ) && ($period < 5)){
-            $this->period = $period;
-            return true; 
+    function setSyllabus(string $syllabus) : bool {
+        $syllabus = strip_tags($syllabus);
+        // 84 is the minimum length of link https://www.miun.se/utbildning/kursplaner-och-utbildningsplaner/Sok-kursplan/search/
+        if(strlen($syllabus > 84)){
+            $this->syllabus = $syllabus;
+            return true;
         } else return false;
+       
     }
 
 
