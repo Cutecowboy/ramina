@@ -42,7 +42,7 @@ switch ($method) {
         // transpile json data to an object
         $data = json_decode(file_get_contents("php://input"), true);
         echo $data;
-
+        // check conditions on the setters, if ok try to create entry in db
         if($courses->setCourseId($data['id']) && ($courses->setcourseName($data['name'])) && ($courses->setProgression($data['progression'])) && ($courses->setSyllabus($data['syllabus']))){
 
             // create a course 
@@ -50,10 +50,12 @@ switch ($method) {
                 $response = array("message" => "Kursen tillagd!");
                 http_response_code(201);
             } else {
+                // server error
                 http_response_code(500);
                 $response = array("message" => "Fel vid lagring av kurs!");
             }
         } else {
+            // something went wrong in the setters, user made error
             $response = array("message" => "Skicka med kursid, kursnamn, progression och länk till kursplanen!");
             http_response_code(400);
         }
