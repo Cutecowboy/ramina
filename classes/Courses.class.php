@@ -37,6 +37,16 @@ class Courses
         return $this->db->query($sql);
     }
 
+    function updateCourse(): bool {
+        $sql = "UPDATE courses SET
+        name = '$this->coursename',
+        progression = '$this->progression',
+        syllabus = '$this->syllabus
+        WHERE id = '$this->courseid';
+        ";
+
+        return $this->db->query($sql);
+    }
     //setters 
 
     function setCourseId(string $courseid) : bool {
