@@ -39,7 +39,24 @@ switch ($method) {
         break;
     
     case 'POST':
-        # code...
+        // transpile json data to an object
+        $data = json_decode(file_get_contents("php://input"), true);
+        echo $data;
+
+        if($courses->setCourseId($data['id']) && ($courses->setcourseName($data['name'])) && ($courses->setProgression($data['progression'])) && ($courses->setSyllabus($data['syllabus']))){
+
+            // create a course 
+            if($courses->createCourse()){
+                $response = array("message" => "Kursen tillagd!");
+                http_response_code(201);
+            } else {
+                http_response_code(500);
+                $response = array("message" => "Fel vid lagring av kurs!");
+            }
+        } else {
+            $response = array("message" => "Skicka med kursid, kursnamn, progression och länk till kursplanen!");
+            http_response_code(400);
+        }
         break;
     case 'PUT':
         break;

@@ -11,8 +11,8 @@ $db = new mysqli(DBHOST, DBUSER, DBPASS, DBDATABASE);
 $sql = "DROP TABLE IF EXISTS courses;";
 
 $sql .= "CREATE TABLE courses(
-    courseid VARCHAR(6) PRIMARY KEY NOT NULL,
-    courname VARCHAR(20) NOT NULL, 
+    id VARCHAR(6) PRIMARY KEY NOT NULL,
+    name VARCHAR(20) NOT NULL, 
     progression VARCHAR(1) NOT NULL,
     syllabus VARCHAR(250) NOT NULL
     );

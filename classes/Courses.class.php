@@ -29,14 +29,9 @@ class Courses
 
     }
 
-    function createCourse(string $courseid, string $coursename, string $progression, string $syllabus) : bool {
-        if(!$this->setCourseId($courseid)) return false;
-        if(!$this->setcourseName($coursename)) return false;
-        if(!$this->setProgression($progression)) return false;
-        if(!$this->setSyllabus($syllabus)) return false; 
-
+    function createCourse() : bool {
         $sql = "INSERT INTO courses VALUES
-        ('$courseid', '$coursename', '$progression', '$syllabus');
+        ('$this->courseid', '$this->coursename', '$this->progression', '$this->syllabus');
         ";
 
         return $this->db->query($sql);
@@ -61,7 +56,7 @@ class Courses
     }
 
     function setProgression(string $progression) : bool {
-        if(strlen($progression === 1)){
+        if(strlen($progression) === 1){
             $this->progression = $progression; 
             return true;
         } else return false;
