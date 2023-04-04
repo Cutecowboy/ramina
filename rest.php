@@ -4,11 +4,11 @@ include_once("config.php");
 
 // headers settings 
 // allow all to the webservice
-header('Acess-Control-Allow-Origin: *');
+header('Access-Control-Allow-Origin: *');
 // Webservice sends data in JSON format
-header('Content type: application/json');
+header('Content-Type: application/json');
 // what methods are allowed
-header('Acess-Control-Allow-Methods: GET, PUT, POST, DELETE');
+header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE');
 //Allow for CORS
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
@@ -23,12 +23,19 @@ if(isset($_GET["id"])){
 //place for making the object
 
 //$cat = new Cat();
-
+$courses = new Courses();
 // switch to separate method 
 
 switch ($method) {
     case 'GET':
-        # code...
+        $response = $courses->getCourses();
+        if(count($response) === 0){
+            $response = array("message" => "Inga kurser i databasen");
+            http_response_code(404);
+        } else {
+            http_response_code(200);
+        }
+
         break;
     
     case 'POST':

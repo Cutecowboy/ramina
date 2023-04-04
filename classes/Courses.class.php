@@ -21,6 +21,14 @@ class Courses
 
     //methods 
 
+    function getCourses() : array {
+        $sql = "SELECT * FROM courses";
+        $result = $this->db->query($sql);
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+
+    }
+
     //setters 
 
     function setCourseId(string $courseid) : bool {
