@@ -30,7 +30,7 @@ class Courses
     }
 
     function createCourse() : bool {
-        $sql = "INSERT INTO courses VALUES
+        $sql = "INSERT INTO courses (courseid, name, progression, syllabus)  VALUES
         ('$this->courseid', '$this->coursename', '$this->progression', '$this->syllabus');
         ";
 
