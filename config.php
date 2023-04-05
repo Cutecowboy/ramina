@@ -16,9 +16,9 @@ if($devmode) {
     define("DBDATABASE", "courseapi");
 } else {
     // lägg in dbserver i molnet
-    define("DBHOST", "localhost");
-    define("DBUSER", "courseapi");
-    define("DBPASS", "password");
-    define("DBDATABASE", "courseapi");
+    define("DBHOST", "studentmysql.miun.se");
+    define("DBUSER", "nagh2200");
+    define("DBPASS", "PH4EkgJdJ!");
+    define("DBDATABASE", "nagh2200");
 }
 
