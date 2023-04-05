@@ -91,6 +91,25 @@ switch ($method) {
         }
         break;
     case 'DELETE':
+        if (!isset($id)) {
+            http_response_code(400);
+            $response = array("message" => "Ogiltig borttagning, id behövs!");
+        } else {
+            if (!$courses->checkCourse($id)) {
+                $response = array("message" => "Kan inte hitta kursen som ska tas bort");
+                http_response_code(400);
+            } else {
+                // edit course 
+                if ($courses->deleteCourse($id)) {
+                    $response = array("message" => "Kursen är nu borttagen!");
+                    http_response_code(201);
+                } else {
+                    $response = array("message" => "Fel vid borttagning!");
+                    http_response_code(500);
+                }
+            }
+        }
+
         break;
 }
 
