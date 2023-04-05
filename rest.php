@@ -28,12 +28,22 @@ $courses = new Courses();
 
 switch ($method) {
     case 'GET':
-        $response = $courses->getCourses();
-        if (count($response) === 0) {
-            $response = array("message" => "Inga kurser i databasen");
-            http_response_code(404);
+        if (isset($id)) {
+            $response = $courses->getCourseById($id);
+            if (count($response) === 0) {
+                $response = array("message" => "Hittade inte kursen");
+                http_response_code(404);
+            } else {
+                http_response_code(200);
+            }
         } else {
-            http_response_code(200);
+            $response = $courses->getCourses();
+            if (count($response) === 0) {
+                $response = array("message" => "Inga kurser i databasen");
+                http_response_code(404);
+            } else {
+                http_response_code(200);
+            }
         }
 
         break;
