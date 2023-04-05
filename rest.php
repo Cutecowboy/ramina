@@ -16,7 +16,7 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 $method = $_SERVER["REQUEST_METHOD"];
 
 // check if id is set 
-if(isset($_GET["id"])){
+if (isset($_GET["id"])) {
     $id = $_GET["id"];
 }
 
@@ -29,7 +29,7 @@ $courses = new Courses();
 switch ($method) {
     case 'GET':
         $response = $courses->getCourses();
-        if(count($response) === 0){
+        if (count($response) === 0) {
             $response = array("message" => "Inga kurser i databasen");
             http_response_code(404);
         } else {
@@ -37,15 +37,15 @@ switch ($method) {
         }
 
         break;
-    
+
     case 'POST':
         // transpile json data to an object
         $data = json_decode(file_get_contents("php://input"), true);
         // check conditions on the setters, if ok try to create entry in db
-        if($courses->setCourseId($data['id']) && ($courses->setcourseName($data['name'])) && ($courses->setProgression($data['progression'])) && ($courses->setSyllabus($data['syllabus']))){
+        if ($courses->setCourseId($data['id']) && ($courses->setcourseName($data['name'])) && ($courses->setProgression($data['progression'])) && ($courses->setSyllabus($data['syllabus']))) {
 
             // create a course 
-            if($courses->createCourse()){
+            if ($courses->createCourse()) {
                 $response = array("message" => "Kursen tillagd!");
                 http_response_code(201);
             } else {
@@ -60,9 +60,29 @@ switch ($method) {
         }
         break;
     case 'PUT':
-        // transpile json data to an object
-        $data = json_decode(file_get_contents("php://input"), true);
-        
+        // guard for unset id 
+        if (!isset($id)) {
+            http_response_code(400);
+            $response = array("message" => "Ogiltig redigering, id behövs!");
+        } else {
+            // transpile json data to an object
+            $data = json_decode(file_get_contents("php://input"), true);
+            // check conditions on the setters, if ok try to create entry in db
+            if ($courses->setCourseId($data['id']) && ($courses->setcourseName($data['name'])) && ($courses->setProgression($data['progression'])) && ($courses->setSyllabus($data['syllabus']))) {
+                // edit course 
+                if ($courses->updateCourse($id)) {
+                    $response = array("message" => "Kursen är nu redigerad!");
+                    http_response_code(201);
+                } else {
+                    $response = array("message" => "Fel vid redigeringen!");
+                    http_response_code(500);
+                }
+            } else {
+                // something went wrong in the setters, user made error
+                $response = array("message" => "Skicka med kursid, kursnamn, progression och länk till kursplanen!");
+                http_response_code(400);
+            }
+        }
         break;
     case 'DELETE':
         break;
