@@ -49,6 +49,19 @@ class Courses
 
         return $this->db->query($sql);
     }
+
+    function checkCourse($id): bool {
+        $id = intval($id);
+        $sql = "SELECT * FROM courses WHERE id = $id;";
+        $result = $this->db->query($sql);
+
+        if(count($result->fetch_all(MYSQLI_ASSOC)) > 0){
+            return true;
+        } else return false;
+
+    }
+
+
     //setters 
 
     function setCourseId(string $courseid) : bool {

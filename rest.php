@@ -69,13 +69,19 @@ switch ($method) {
             $data = json_decode(file_get_contents("php://input"), true);
             // check conditions on the setters, if ok try to create entry in db
             if ($courses->setCourseId($data['id']) && ($courses->setcourseName($data['name'])) && ($courses->setProgression($data['progression'])) && ($courses->setSyllabus($data['syllabus']))) {
-                // edit course 
-                if ($courses->updateCourse($id)) {
-                    $response = array("message" => "Kursen är nu redigerad!");
-                    http_response_code(201);
+                // check if id is valid
+                if (!$courses->checkCourse($id)) {
+                    $response = array("message" => "Kan inte hitta kursen som ska redigeras");
+                    http_response_code(400);
                 } else {
-                    $response = array("message" => "Fel vid redigeringen!");
-                    http_response_code(500);
+                    // edit course 
+                    if ($courses->updateCourse($id)) {
+                        $response = array("message" => "Kursen är nu redigerad!");
+                        http_response_code(201);
+                    } else {
+                        $response = array("message" => "Fel vid redigeringen!");
+                        http_response_code(500);
+                    }
                 }
             } else {
                 // something went wrong in the setters, user made error
