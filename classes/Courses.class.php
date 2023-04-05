@@ -29,6 +29,14 @@ class Courses
 
     }
 
+    function getCourseById($id): array {
+        $id = intval($id);
+        $sql = "SELECT * FROM courses WHERE id = $id;";
+        $result = $this->db->query($sql);
+
+        return $result->fetch_all(MYSQLI_ASSOC);
+    }
+
     function createCourse() : bool {
         $sql = "INSERT INTO courses (courseid, name, progression, syllabus)  VALUES
         ('$this->courseid', '$this->coursename', '$this->progression', '$this->syllabus');
