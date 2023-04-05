@@ -13,9 +13,9 @@ $sql = "DROP TABLE IF EXISTS courses;";
 $sql .= "CREATE TABLE courses(
     id INT(11) PRIMARY KEY AUTO_INCREMENT, 
     courseid VARCHAR(6) NOT NULL,
-    name VARCHAR(20) NOT NULL, 
+    name TEXT NOT NULL, 
     progression VARCHAR(1) NOT NULL,
-    syllabus VARCHAR(250) NOT NULL
+    syllabus TEXT NOT NULL
     );
     ";
 
