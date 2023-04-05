@@ -61,6 +61,12 @@ class Courses
 
     }
 
+    function deleteCourse($id): bool{
+        $id = intval($id);
+        $sql = "DELETE FROM courses WHERE id = $id;";
+        return $this->db->query($sql);
+    }
+
 
     //setters 
 
