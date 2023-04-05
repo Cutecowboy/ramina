@@ -62,6 +62,7 @@ switch ($method) {
     case 'PUT':
         // transpile json data to an object
         $data = json_decode(file_get_contents("php://input"), true);
+        
         break;
     case 'DELETE':
         break;
